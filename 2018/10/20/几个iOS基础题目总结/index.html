@@ -15,7 +15,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1786624-a8fb6678d2037341.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1786624-12785a97a9fb1a28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-10-20T08:26:04.061Z">
+<meta property="og:updated_time" content="2018-10-20T10:56:40.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="几个iOS基础题目总结">
 <meta name="twitter:description" content="前言:最近看到大佬汇集的iOS面试题，个人感觉还不错,打算试着探索一下这些问题的答案,也巩固一下我自己基础知识。这篇文章先总结一下基础知识的答案吧。其中有些错误或不全的地方望指教。  —————————————–持续更新中——————————— iOS 基础题1:分类和扩展有什么区别？可以分别用来做什么？分类有哪些局限性？分类的结构体里面有哪些成员？分类和扩展的作用  1:category的主要">
@@ -72,15 +72,166 @@
   </div>
 </div>
 
-        <section id="main"><article class="animated rubberBand article article-type-">
+        <section id="main"><article id="post-几个iOS基础题目总结" class="wow slideInRight article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/20/几个iOS基础题目总结/" class="article-date">
+  <time class="post-time" datetime="2018-10-20T08:26:04.061Z" itemprop="datePublished">
+    <span class="post-month">10月</span><br>
+    <span class="post-day">20</span>
+  </time>
+</a>
+   
+  </div>
   <div class="article-inner">
-    <div class="tag-box">
-      <h1>标签</h1>
-      <p>ios</p> <p>html</p> <p>RN</p> <p>swift</p>
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      几个iOS基础题目总结
+    </h1>
+  
+
+        <div>
+          
+          
+              
+
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>前言:<br>最近看到大佬汇集的<a href="https://juejin.im/post/5b56155e6fb9a04f8b78619b" target="_blank" rel="noopener">iOS面试题</a>，个人感觉还不错,打算试着探索一下这些问题的答案,也巩固一下我自己基础知识。这篇文章先总结一下基础知识的答案吧。其中有些错误或不全的地方望指教。</p>
+</blockquote>
+<p>—————————————–持续更新中———————————</p>
+<h3 id="iOS-基础题"><a href="#iOS-基础题" class="headerlink" title="iOS 基础题"></a>iOS 基础题</h3><h5 id="1-分类和扩展有什么区别？可以分别用来做什么？分类有哪些局限性？分类的结构体里面有哪些成员？"><a href="#1-分类和扩展有什么区别？可以分别用来做什么？分类有哪些局限性？分类的结构体里面有哪些成员？" class="headerlink" title="1:分类和扩展有什么区别？可以分别用来做什么？分类有哪些局限性？分类的结构体里面有哪些成员？"></a>1:分类和扩展有什么区别？可以分别用来做什么？分类有哪些局限性？分类的结构体里面有哪些成员？</h5><p>分类和扩展的作用</p>
+<blockquote>
+<p>1:<strong>category的主要作用是为已经存在的类添加方法</strong><br>下面也有其他作用可以了解下:<br>2:可以把类的实现分开在几个不同的文件里面,<br>(可以减少单个文件的体积<br>可以把不同的功能组织到不同的category里<br>可以由多个开发者共同完成一个类<br>可以按需加载想要的category)<br>3:模拟多继承<br>4:把framework的私有方法公开<br>扩展的作用:为一个类添加额外的原来没有变量，方法和属性</p>
+</blockquote>
+<p>类别与类扩展的区别</p>
+<blockquote>
+<p>1:extension在编译期决定，它就是类的一部分，<br>在编译期和头文件里的@interface以及实现文件里的@implement一起形成一个完整的类，<br>它伴随类的产生而产生，亦随之一起消亡。<br>extension一般用来隐藏类的私有信息，<br>你必须有一个类的源码才能为一个类添加extension，所以你无法为系统的类比如NSString添加extension<br>但是category则完全不一样，它是在运行时候决定的.<br>类扩展是在编译阶段被添加到类中，而类别是在运行时添加到类中。<br><strong>extension可以添加实例变量，而category是无法添加实例变量的</strong><br>2:类扩展中声明的方法没被实现，编译器会报警，但是类别中的方法没被实现编译器是不会有任何警告的。</p>
+</blockquote>
+<p>分类局限性</p>
+<blockquote>
+<p>(1)无法向类中添加新的实例变量。<br> (2)名称冲突，即当类别中的方法与原始类方法名称冲突时，类别具有更高的优先级。<br> (3)如果多个分类中都有和原有类中同名的方法, 那么调用该方法的时候执行谁由编译器决定；编译器会执行最后一个参与编译的分类中的方法</p>
+</blockquote>
+<p> 在runtime层，category用结构体category_t<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef struct category_t &#123;</span><br><span class="line">    const char *name;</span><br><span class="line">    classref_t cls;</span><br><span class="line">    struct method_list_t *instanceMethods;</span><br><span class="line">    struct method_list_t *classMethods;</span><br><span class="line">    struct protocol_list_t *protocols;</span><br><span class="line">    struct property_list_t *instanceProperties;</span><br><span class="line">&#125; category_t;</span><br></pre></td></tr></table></figure></p>
+<p> 从源码中我们可以看出分类结构体成员:</p>
+<blockquote>
+<p>1)类的名字（name）<br> 2)类（cls）<br> 3)category中所有给类添加的实例方法的列表（instanceMethods）<br> 4)category中所有添加的类方法的列表（classMethods）<br> 5)category实现的所有协议的列表（protocols）<br> 6)category中添加的所有属性（instanceProperties）</p>
+</blockquote>
+<p>参考链接:<br><a href="https://www.jianshu.com/p/9e827a1708c6" target="_blank" rel="noopener">分类和扩展说明参考</a><br><a href="https://tech.meituan.com/DiveIntoCategory.html" target="_blank" rel="noopener">美团关于分类的源码解析说明</a><br><a href="https://opensource.apple.com/source/objc4/objc4-723/runtime/objc-runtime-new.h.auto.html" target="_blank" rel="noopener">官方分类源码地址</a></p>
+<h5 id="2-atomic的实现机制；为什么不能保证绝对的线程安全"><a href="#2-atomic的实现机制；为什么不能保证绝对的线程安全" class="headerlink" title="2:atomic的实现机制；为什么不能保证绝对的线程安全"></a>2:atomic的实现机制；为什么不能保证绝对的线程安全</h5><p> 这个问题我觉得看这个就够了<a href="https://stackoverflow.com/questions/588866/whats-the-difference-between-the-atomic-and-nonatomic-attributes/589348#589348" target="_blank" rel="noopener">stackoverflow关于atomic和nonatomic的一个问题</a><br> 当然也可以看别人根据<em>stackoverflow这个问题</em>总结好的<a href="https://www.jianshu.com/p/7288eacbb1a2" target="_blank" rel="noopener">中文说明</a></p>
+<blockquote>
+<p>简单来说:atomic 会加一个锁来保障线程安全，也就是保证了读写操作是安全的，并且引用计数会 +1，来向调用者保证这个对象会一直存在.<br>但是不能保证线程安全,比如当线程A setter操作时，这时B线程的setter操作会等待。当A线程的setter结束后，B线程进行setter操作，<br>然后当A线程需要getter操作时，却有可能获得了在B线程中的值，这就破坏了线程安全</p>
+</blockquote>
+<p>#####3:哪些场景可以触发离屏渲染？</p>
+<blockquote>
+<p>首先我们要知道什么是离屏渲染:<br>离屏渲染Off-Screen Rendering 指的是GPU在当前屏幕缓冲区以外新开辟一个缓冲区进行渲染操作。<br>离屏渲染会先在屏幕外创建新缓冲区，离屏渲染结束后，再从离屏切到当前屏幕<br>还有另外一种屏幕渲染方式-当前屏幕渲染On-Screen Rendering ，<br>指的是GPU的渲染操作是在当前用于显示的屏幕缓冲区中进行。<br>以下方式会触发离屏幕渲染<br>1:使用系统提供的圆角效果也会触发离屏渲染.(<strong>masksToBounds = true&amp;&amp;cornerRadius&gt;0才会引发离屏渲染</strong>)<br>2:重写drawRect<br>3:layer.shadow（Shawdow 可以通过指定路径来取消离屏渲染）<br>4:layer.mask(<strong>Mask 效果无法取消离屏渲染，使用混合图层的方法来模拟 mask 效果，性能各方面都是和无效果持平。</strong>)<br>5:layer.allowsGroupOpacity（<strong>GroupOpacity 是指 CALayer 的allowsGroupOpacity属性，UIView 的alpha属性等同于 CALayer opacity属性，<br>开启离屏渲染的条件是：layer.opacity != 1.0并且有子 layer 或者背景图。</strong>）<br>layer.allowsEdgeAntialiasing（<strong>该属性用于消除锯齿，离屏渲染条件旋转视图并且设置layer.allowsEdgeAntialiasing = true</strong>)<br>6:layer.shouldRasterize(<strong>光栅化会触发离屏渲染,开启 Rasterization=true 后，GPU 只合成一次内容，然后复用合成的结果；合成的内容超过 100ms 没有使用会从缓存里移除，在更新内容时还会产生更多的离屏渲染。对于内容不发生变化的视图，原本拖后腿的离屏渲染就成为了助力</strong>)</p>
+</blockquote>
+<p>参考:<br><a href="https://www.jianshu.com/p/ca51c9d3575b" target="_blank" rel="noopener">离屏渲染优化详解</a><br><a href="https://www.jianshu.com/p/439e158b44de" target="_blank" rel="noopener">Instruments性能优化-Core Animation</a><br><a href="https://objccn.io/issue-3-1/" target="_blank" rel="noopener">绘制像素到屏幕上</a><br><a href="https://kiushuo.gitbooks.io/note/content/xiang-mu-you-hua/jie-mian-liu-chang-xing-you-hua.html" target="_blank" rel="noopener">界面流畅性优化</a></p>
+<p> #####4:被weak修饰的对象在被释放的时候会发生什么？是如何实现的？知道sideTable么？里面的结构可以画出来么？</p>
+<blockquote>
+<p>释放时，调用clearDeallocating函数。clearDeallocating函数首先根据对象地址获取所有weak指针地址的数组，然后遍历这个数组把其中的数据设为nil，最后把这个entry从weak表中删除，最后清理对象的记录.<br>objc_clear_deallocating该函数的动作如下：<br>1、从weak表中获取废弃对象的地址为键值的记录<br>2、将包含在记录中的所有附有 weak修饰符变量的地址，赋值为nil<br>3、将weak表中该记录删除<br>4、从引用计数表中删除废弃对象的地址为键值的记录<br>SideTable 这个结构体主要用于管理对象的引用计数和 weak 表。在 <a href="https://opensource.apple.com/source/objc4/objc4-723/runtime/NSObject.mm.auto.html" target="_blank" rel="noopener">NSObject.mm</a> 中声明其数据结构:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">struct SideTable &#123;</span><br><span class="line">    spinlock_t slock;//保证原子操作的自旋锁</span><br><span class="line">    RefcountMap refcnts;//引用计数的 hash 表</span><br><span class="line">    weak_table_t weak_table;//weak 引用全局 hash 表</span><br><span class="line"></span><br><span class="line">    SideTable() &#123;</span><br><span class="line">        memset(&amp;weak_table, 0, sizeof(weak_table));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~SideTable() &#123;</span><br><span class="line">        _objc_fatal(&quot;Do not delete SideTable.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void lock() &#123; slock.lock(); &#125;</span><br><span class="line">    void unlock() &#123; slock.unlock(); &#125;</span><br><span class="line">    void forceReset() &#123; slock.forceReset(); &#125;</span><br><span class="line"></span><br><span class="line">    // Address-ordered lock discipline for a pair of side tables.</span><br><span class="line"></span><br><span class="line">    template&lt;HaveOld, HaveNew&gt;</span><br><span class="line">    static void lockTwo(SideTable *lock1, SideTable *lock2);</span><br><span class="line">    template&lt;HaveOld, HaveNew&gt;</span><br><span class="line">    static void unlockTwo(SideTable *lock1, SideTable *lock2);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>参考:<br><a href="https://opensource.apple.com/source/objc4/objc4-723/runtime/objc-weak.mm.auto.html" target="_blank" rel="noopener">objc-weak.mm源码</a><br><a href="http://ios.jobbole.com/89012/" target="_blank" rel="noopener">weak 弱引用的实现方式</a><br><a href="https://www.jianshu.com/p/13c4fb1cedea" target="_blank" rel="noopener">iOS 底层解析weak的实现原理</a></p>
+<h5 id="5-KVO的底层实现？如何取消系统默认的KVO并手动触发（给KVO的触发设定条件：改变的值符合某个条件时再触发KVO"><a href="#5-KVO的底层实现？如何取消系统默认的KVO并手动触发（给KVO的触发设定条件：改变的值符合某个条件时再触发KVO" class="headerlink" title="5:KVO的底层实现？如何取消系统默认的KVO并手动触发（给KVO的触发设定条件：改变的值符合某个条件时再触发KVO)?"></a>5:KVO的底层实现？如何取消系统默认的KVO并手动触发（给KVO的触发设定条件：改变的值符合某个条件时再触发KVO)?</h5><blockquote>
+<p>当你观察一个对象时，一个新的类会被动态创建。这个类继承自该对象的原本的类，并重写了被观察属性的 setter 方法。重写的 setter 方法会负责在调用原 setter 方法之前和之后，通知所有观察对象：值的更改。最后通过 isa 混写（isa-swizzling） 把这个对象的 isa 指针 ( isa 指针告诉 Runtime 系统这个对象的类是什么 ) 指向这个新创建的子类，<br>对象就神奇的变成了新创建的子类的实例</p>
+</blockquote>
+<p>关闭默认的KVO重写方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+(BOOL)automaticallyNotifiesObserversForKey:(NSString *)key &#123;</span><br><span class="line">    return NO;</span><br><span class="line">&#125;//如果返回NO，KVO无法自动运作，需手动触发</span><br></pre></td></tr></table></figure></p>
+<p>键值观察通知依赖于 NSObject 的两个方法: <code>willChangeValueForKey</code>: 和 <code>didChangevlueForKey</code> 。<br>在一个被观察属性发生改变之前， <code>willChangeValueForKey:</code> 一定会被调用，这就 会记录旧的值。而当改变发生后，<br><code>observeValueForKey:ofObject:change:context:</code> 会被调用，<br>并且 <code>didChangeValueForKey:</code> 也会被调用。如果可以手动实现这些调用，就可以实现<code>手动触发</code>.</p>
+<p>参考:<br><a href="http://tech.glowing.com/cn/implement-kvo/" target="_blank" rel="noopener">如何自己动手实现 KVO</a><br><a href="https://github.com/ChenYilong/iOSInterviewQuestions/blob/master/01%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88%EF%BC%88%E4%B8%8B%EF%BC%89.md#51-apple%E7%94%A8%E4%BB%80%E4%B9%88%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%AF%B9%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84kvo" target="_blank" rel="noopener">apple用什么方式实现对一个对象的KVO</a></p>
+<h5 id="6-一个int变量被-block修饰与否的区别？"><a href="#6-一个int变量被-block修饰与否的区别？" class="headerlink" title="6:一个int变量被__block修饰与否的区别？"></a>6:一个int变量被__block修饰与否的区别？</h5><blockquote>
+<p>Block不允许修改外部变量的值，这里所说的外部变量的值，指的是栈中指针的内存地址。<br><strong>block 所起到的作用就是只要观察到该变量被 block 所持有。
+</strong>block 后，实际上成为了一个结构体，block内截获了 该结构体的指针。<br> 在block中使用自动变量时，使用的是 指针指向的结构体中的 自动变量。<br> ARC环境下，会被copy到堆上。(ARC环境下，一旦Block赋值就会触发copy，<strong>block就会copy到堆上，Block也是</strong>NSMallocBlock。<br> ARC环境下也是存在<strong>NSStackBlock的时候，这种情况下，</strong>block就在栈上。)<br> MRC环境下，只有copy，<strong>block才会被复制到堆上，否则，</strong>block一直都在栈上。</p>
+</blockquote>
+<p> 测试，其实最好的方法是动手测试，这边我只测试了ARC环境下的。我在<code>.main.m</code>的测试代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">__block int a1 = 1;</span><br><span class="line">      int a2 = 1;</span><br><span class="line">      NSLog(@&quot;__block定义前a1：%p&quot;, &amp;a1);</span><br><span class="line">      NSLog(@&quot;__block定义前a2：%p&quot;, &amp;a2);;</span><br><span class="line">      void (^foo)(void) = ^&#123;</span><br><span class="line">          a1 = 2;</span><br><span class="line"></span><br><span class="line">          NSLog(@&quot;block内部a1：%p&quot;, &amp;a1);</span><br><span class="line">          NSLog(@&quot;block内部a2：%p&quot;, &amp;a2);</span><br><span class="line">      &#125;;</span><br><span class="line">      NSLog(@&quot;重新定义后a1：%p&quot;, &amp;a1);</span><br><span class="line">      NSLog(@&quot;重新定义后a2：%p&quot;, &amp;a2);</span><br><span class="line">      NSLog(@&quot;foo =%@&quot;,foo);</span><br><span class="line">      foo();</span><br><span class="line">  ——---------------------- 输出结果如下：-------------------------------</span><br><span class="line"></span><br><span class="line">      __block定义前a1：0x7fff53814128</span><br><span class="line">      __block定义前a2：0x7fff5381410c</span><br><span class="line">      重新定义后a1：0x60400003dd98</span><br><span class="line">      重新定义后a2：0x7fff5381410c</span><br><span class="line">      foo =&lt;__NSMallocBlock__: 0x60c000244830&gt;</span><br><span class="line">      block内部a1：0x60400003dd98</span><br><span class="line">      block内部a2：0x60400025dbd8</span><br></pre></td></tr></table></figure></p>
+<p>通知打印结果可以发现a1,a2blcok内部和定义前的地址字节数相差很大，堆地址要小于栈地址，又因为iOS中一个进程的栈区内存只有1M，Mac也只有8M，所以a1和a2在block内部都会被copy到堆上，只不过一个值的copy，一个是地址copy。</p>
+<p>然后<code>clang -rewrite-objc main.m</code>查看一下源码，如果<code>clang -rewrite-objc</code>报错，可以像我一样尝试<br><code>xcrun -sdk iphonesimulator11.0 clang -rewrite-objc main.m</code></p>
+<p>源码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//加上__block 后，实际上成为了一个结构体，block内截获了 该结构体的指针</span><br><span class="line">struct __Block_byref_a1_0 &#123;</span><br><span class="line">  void *__isa;</span><br><span class="line">__Block_byref_a1_0 *__forwarding;</span><br><span class="line"> int __flags;</span><br><span class="line"> int __size;</span><br><span class="line"> int a1;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct __main_block_impl_0 &#123;</span><br><span class="line">  struct __block_impl impl;</span><br><span class="line">  struct __main_block_desc_0* Desc;</span><br><span class="line">  int a2;</span><br><span class="line">  ////截获的结构体指针</span><br><span class="line">  __Block_byref_a1_0 *a1; // by ref</span><br><span class="line">  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _a2, __Block_byref_a1_0 *_a1, int flags=0) : a2(_a2), a1(_a1-&gt;__forwarding) &#123;</span><br><span class="line">    impl.isa = &amp;_NSConcreteStackBlock;</span><br><span class="line">    impl.Flags = flags;</span><br><span class="line">    impl.FuncPtr = fp;</span><br><span class="line">    Desc = desc;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">static void __main_block_func_0(struct __main_block_impl_0 *__cself) &#123;</span><br><span class="line">  //指针引用</span><br><span class="line">  __Block_byref_a1_0 *a1 = __cself-&gt;a1; // bound by ref</span><br><span class="line">  //a2只是单纯的值拷贝,。Block仅仅捕获了a2的值，并没有捕获a2的内存地址。</span><br><span class="line">  int a2 = __cself-&gt;a2; // bound by copy</span><br><span class="line"></span><br><span class="line">            (a1-&gt;__forwarding-&gt;a1) = 2;</span><br><span class="line"></span><br><span class="line">            NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_dd_4kldckw11bv3zn6tgktzys440000gn_T_main_5a4382_mi_2, &amp;(a1-&gt;__forwarding-&gt;a1));</span><br><span class="line">            NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_dd_4kldckw11bv3zn6tgktzys440000gn_T_main_5a4382_mi_3, &amp;a2);</span><br><span class="line">        &#125;</span><br><span class="line">static void __main_block_copy_0(struct __main_block_impl_0*dst, struct __main_block_impl_0*src) &#123;_Block_object_assign((void*)&amp;dst-&gt;a1, (void*)src-&gt;a1, 8/*BLOCK_FIELD_IS_BYREF*/);&#125;</span><br><span class="line"></span><br><span class="line">static void __main_block_dispose_0(struct __main_block_impl_0*src) &#123;_Block_object_dispose((void*)src-&gt;a1, 8/*BLOCK_FIELD_IS_BYREF*/);&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从源码中可以看出:</p>
+<blockquote>
+<p>带有 <strong>block的变量也被转化成了一个结构体</strong>Block_byref_i_0,很清楚看到了<strong>block的引用过程。<br>而Block仅仅捕获了a2的值，并没有捕获a2的内存地址。所以在</strong>main_block_func_0这个函数中即使我们重写这个自动变量a2的值,<br>也无法改变Block外面自动变量a2的值</p>
+</blockquote>
+<p>参考:<br><a href="https://www.jianshu.com/p/404ff9d3cd42" target="_blank" rel="noopener">iOS中__block 关键字的底层实现原理</a><br><a href="https://www.jianshu.com/p/ee9756f3d5f6" target="_blank" rel="noopener">深入研究Block捕获外部变量和__block实现原理</a></p>
+<h5 id="7-为什么在block外部使用weak修饰的同时需要在内部使用strong修饰"><a href="#7-为什么在block外部使用weak修饰的同时需要在内部使用strong修饰" class="headerlink" title="7:为什么在block外部使用weak修饰的同时需要在内部使用strong修饰"></a>7:为什么在block外部使用<strong>weak修饰的同时需要在内部使用</strong>strong修饰</h5><blockquote>
+<p>_weak是为了解决循环引用问题,(如果block和对象相互持有就会形成循环引用)<br> 而<strong>strong在Block内部修饰的对象,会保证,在使用这个对象在block内,<br>这个对象都不会被释放,strongSelf仅仅是个局部变量，存在栈中，会在block执行结束后回收，不会再造成循环引用。
+</strong>strong主要是用在多线程中,防止对象被提前释放。</p>
+</blockquote>
+<p>参考:<br><a href="https://www.jianshu.com/p/fe772a3536ca" target="_blank" rel="noopener">iOS <strong>weak和</strong>strong在Block中的使用</a></p>
+<p>题外话:</p>
+<h5 id="有时候我们经常也会被问到block为什么-常使用copy关键字？"><a href="#有时候我们经常也会被问到block为什么-常使用copy关键字？" class="headerlink" title="有时候我们经常也会被问到block为什么 常使用copy关键字？"></a>有时候我们经常也会被问到block为什么 常使用copy关键字？</h5><p><a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW12" target="_blank" rel="noopener">官方</a>中有如下一段话:<br><img src="https://upload-images.jianshu.io/upload_images/1786624-a8fb6678d2037341.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="block 应该用copy"></p>
+<p>总结别人的话来说:</p>
+<blockquote>
+<p>block 使用 <code>copy</code> 是从 <strong>MRC</strong>遗留下来的“传统”,在 <strong>MRC</strong> 中,方法内部的 block 是在栈区的,使用 copy 可以把它放到堆区.在 ARC 中写不写都行：对于 block 使用 copy 还是 strong 效果是一样的，但写上 copy 也无伤大雅，还能时刻提醒我们：编译器自动对 block 进行了 copy 操作。<br>如果不写 copy ，该类的调用者有可能会忘记或者根本不知道“编译器会自动对 block 进行了 copy 操作”</p>
+</blockquote>
+<p>######8:讲一下对象，类对象，元类，跟元类结构体的组成以及他们是如何相关联的？为什么对象方法没有保存的对象结构体里，而是保存在类对象的结构体里.</p>
+<blockquote>
+<p>对象isa指向类对象，类对象的isa指向元类。元类isa指向根元类。<br>根元类的isa指针指向自己，superclass指针指向NSObject类<br>实例对象结构体只有一个isa变量，指向实例对象所属的类。<br>类对象有isa,superclass,方法，属性，协议列表，以及成员变量的<br>     描述。<br>所有的对象调用方法都是一样的，没有必要存在对象中，对象可以有<br>无数个，类对象就有一个所以只需存放在类对象中</p>
+</blockquote>
+<p>可以从官方<a href="https://opensource.apple.com/source/objc4/objc4-723/runtime/objc.h.auto.html" target="_blank" rel="noopener">objc.h</a>源码里面找到实例定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/// Represents an instance of a class.</span><br><span class="line">struct objc_object &#123;</span><br><span class="line">    Class _Nonnull isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>可以在<a href="https://opensource.apple.com/source/objc4/objc4-723/runtime/runtime.h.auto.html" target="_blank" rel="noopener">runtime.h</a>里面找到类对象的定义<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class &#123;</span><br><span class="line">    Class _Nonnull isa  OBJC_ISA_AVAILABILITY;</span><br><span class="line"></span><br><span class="line">#if !__OBJC2__</span><br><span class="line">    //向该类所继承的父类对象</span><br><span class="line">    Class _Nullable super_class                              OBJC2_UNAVAILABLE;</span><br><span class="line">    const char * _Nonnull name                               OBJC2_UNAVAILABLE;</span><br><span class="line">    long version                                             OBJC2_UNAVAILABLE;</span><br><span class="line">    long info                                                OBJC2_UNAVAILABLE;</span><br><span class="line">    long instance_size                                       OBJC2_UNAVAILABLE;</span><br><span class="line">    //成员变量列表</span><br><span class="line">    struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;</span><br><span class="line">    //方法列表</span><br><span class="line">    struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;//方法列表</span><br><span class="line">    //用于缓存调用过的方法</span><br><span class="line">    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;</span><br><span class="line">    //协议链表用来存储声明遵守的正式协议</span><br><span class="line">    struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>参考:<br><a href="https://juejin.im/post/5aff9d9c51882542c760d851" target="_blank" rel="noopener">iOS开发·runtime原理与实践: 基本知识篇</a><br><a href="https://github.com/ChenYilong/iOSInterviewQuestions/blob/master/01%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88%EF%BC%88%E4%B8%8A%EF%BC%89.md#19-%E4%B8%80%E4%B8%AAobjc%E5%AF%B9%E8%B1%A1%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E8%80%83%E8%99%91%E6%9C%89%E7%88%B6%E7%B1%BB%E7%9A%84%E6%83%85%E5%86%B5" target="_blank" rel="noopener">一个objc对象如何进行内存布局</a></p>
+<h6 id="9-iOS-中内省的几个方法？class方法和objc-getClass方法有什么区别"><a href="#9-iOS-中内省的几个方法？class方法和objc-getClass方法有什么区别" class="headerlink" title="9:iOS 中内省的几个方法？class方法和objc_getClass方法有什么区别?"></a>9:iOS 中内省的几个方法？class方法和objc_getClass方法有什么区别?</h6><p>题外话:原谅我看了这道面试题，第一次听说内省,才疏学浅，太菜了，只能好好搜索学习了一番。</p>
+<blockquote>
+<p>内省是对象揭示自己作为一个运行时对象的详细信息的一种能力。包括对象在继承树上的位置，对象是否遵循特定的协议，以及是否可以响应特定的消息。NSObject协议和类定义了很多内省方法，用于查询运行时信息，以便根据对象的特征进行识别。<br> <code>isKindOfClass:Class</code><br> 检查对象是否是那个类或者其继承类实例化的对象<br> <code>isMemberOfClass:Class</code><br> <code>检查对象是否是那个类但不包括继承类而实例化的对象</code><br> <code>respondToSelector:selector</code><br> 检查对象是否包含这个方法<br> <code>conformsToProtocol:protocol</code><br> 检查对象是否符合协议，是否实现了协议中所有的必选方法。<br> object_getClass(obj)返回的是obj中的isa指针；<br> 而[obj class]则分两种情况：<br> 一:当obj为实例对象时，<br> [obj class]中class是实例方法：- (Class)class，<br> 返回的obj对象中的isa指针，返回的是类对象；<br> 二:当obj为类对象（包括元类和根类以及根元类）时，调用的是类方法：+ (Class)class，返回的结果为其本身</p>
+</blockquote>
+<p> 可以在<code>ViewController</code>通过简单代码验证一下<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//currentClass现在是类对象</span><br><span class="line">Class currentClass = [self class];</span><br><span class="line">      //都指向实例对象isa指定的类对象</span><br><span class="line">      NSLog(@&quot;currentClass = %p getClass=%p&quot;,currentClass ,object_getClass(self));</span><br><span class="line">      //class指向类对象本身  getClass指向类对象isa指向元类</span><br><span class="line">      NSLog(@&quot;currentClass = %p  getClass=%p&quot;,[currentClass class],object_getClass(currentClass));</span><br><span class="line">       const char *getClassName = object_getClassName(currentClass);</span><br><span class="line">      //实例对象指向类，类执行元类，元类指向根元类，根元类指向自己</span><br><span class="line">      for (int i = 1; i &lt; 5; i++) &#123;</span><br><span class="line">          NSLog(@&quot;Following the isa pointer %d times gives %p %@---%s&quot;, i, currentClass,currentClass,getClassName);</span><br><span class="line">          currentClass = object_getClass(currentClass);</span><br><span class="line">          getClassName = object_getClassName(currentClass);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">currentClass = 0x10ab29198 getClass=0x10ab29198</span><br><span class="line">currentClass = 0x10ab29198  getClass=0x10ab291c0</span><br><span class="line">Following the isa pointer 1 times gives 0x10ab29198 ViewController---ViewController</span><br><span class="line">Following the isa pointer 2 times gives 0x10ab291c0 ViewController---NSObject</span><br><span class="line">Following the isa pointer 3 times gives 0x10b819e58 NSObject---NSObject</span><br><span class="line">Following the isa pointer 4 times gives 0x10b819e58 NSObject---NSObject</span><br></pre></td></tr></table></figure></p>
+<p> 参考<br> <a href="http://mikixiyou.iteye.com/blog/1743868" target="_blank" rel="noopener">Objective-C的内省(Introspection)小结</a></p>
+<h6 id="10-RunLoop的作用是什么？它的内部工作机制了解么？（最好结合线程和内存管理来说）"><a href="#10-RunLoop的作用是什么？它的内部工作机制了解么？（最好结合线程和内存管理来说）" class="headerlink" title="10:RunLoop的作用是什么？它的内部工作机制了解么？（最好结合线程和内存管理来说）"></a>10:RunLoop的作用是什么？它的内部工作机制了解么？（最好结合线程和内存管理来说）</h6><p>这一块平时用的比较少，了解不是很多。其有时间真的好好静下心来看一下相关东西了。</p>
+<blockquote>
+<p>字面意思是“消息循环、运行循环”，runloop内部实际上就是一个do-while循环，它在循环监听着各种事件源、消息，对他们进行管理并分发给线程来执行。<br>线程和 RunLoop 之间是一一对应的。<br>运行机制从<a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html#//apple_ref/doc/uid/10000057i-CH16-SW23" target="_blank" rel="noopener">官方文档说明</a><br>翻译过来如下:<br>1.通知观察者将要进入运行循环。<br>2.通知观察者将要处理计时器。<br>3.通知观察者任何非基于端口的输入源即将触发。<br>4.触发任何准备触发的基于非端口的输入源。<br>5.如果基于端口的输入源准备就绪并等待触发，请立即处理该事件。转到第9步。<br>6.通知观察者线程即将睡眠。<br>7.将线程置于睡眠状态，直到发生以下事件之一:</p>
+<ul>
+<li>事件到达基于端口的输入源。</li>
+<li>计时器运行。</li>
+<li>为运行循环设置的超时值到期。</li>
+<li>运行循环被明确唤醒。</li>
+</ul>
+<p>8.通知观察者线程被唤醒。<br>9.处理待处理事件。</p>
+<ul>
+<li>如果触发了用户定义的计时器，则处理计时器事件并重新启动循环。转到第2步。</li>
+<li>如果输入源被触发，则传递事件。</li>
+<li>如果运行循环被明确唤醒但尚未超时，请重新启动循环。转到第2步。</li>
+</ul>
+<p>10.通知观察者运行循环已退出。<br>这里借用一下这里的<a href="https://blog.ibireme.com/wp-content/uploads/2015/05/RunLoop_1.png" target="_blank" rel="noopener">图片</a><br><img src="https://upload-images.jianshu.io/upload_images/1786624-12785a97a9fb1a28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RunLoop_1.png"></p>
+</blockquote>
+<p> 参考</p>
+<p> <a href="https://blog.ibireme.com/2015/05/18/runloop/#base" target="_blank" rel="noopener">深入理解RunLoop</a><br> <a href="https://www.jianshu.com/p/911549ae4bf8" target="_blank" rel="noopener">关于Runloop的原理探究及基本使用</a></p>
+<h6 id="11-谈谈消息转发机制实现"><a href="#11-谈谈消息转发机制实现" class="headerlink" title="11:谈谈消息转发机制实现"></a>11:谈谈消息转发机制实现</h6><blockquote>
+<p>先会调用<code>objc_msgSend</code>方法，首先在Class中的缓存查找IMP，没有缓存则初始化缓存。如果没有找到，则向父类的Class查找。如果一直查找到根类仍旧没有实现，则执行消息转发。<br>1、调用<code>resolveInstanceMethod：</code>方法。允许用户在此时为该Class动态添加实现。如果有实现了，则调用并返回YES，重新开始objc_msgSend流程。这次对象会响应这个选择器，一般是因为它已经调用过了class_addMethod。如果仍没有实现，继续下面的动作。<br>2、调用<code>forwardingTargetForSelector:</code>方法，尝试找到一个能响应该消息的对象。如果获取到，则直接把消息转发给它，返回非nil对象。否则返回nil，继续下面的动作。注意这里不要返回self，否则会形成死循环。<br>3、调用<code>methodSignatureForSelector:</code>方法，尝试获得一个方法签名。如果获取不到，则直接调用doesNotRecognizeSelector抛出异常。如果能获取，则返回非nil;传给一个NSInvocation并传给<code>forwardInvocation：</code>。<br>4、调用<code>forwardInvocation:</code>方法，将第三步获取到的方法签名包装成Invocation传入，如何处理就在这里面了，并返回非nil。<br>5、调用<code>doesNotRecognizeSelector</code>：，默认的实现是抛出异常。如果第三步没能获得一个方法签名，执行该步骤 。</p>
+</blockquote>
+<p>参考:<br><a href="http://yulingtianxia.com/blog/2016/06/15/Objective-C-Message-Sending-and-Forwarding/" target="_blank" rel="noopener">Objective-C 消息发送与转发机制原理</a><br><a href="https://www.cnblogs.com/zhanggui/p/7731394.html" target="_blank" rel="noopener">深入浅出理解消息的传递和转发机制</a><br>—————————————–未完待续———————————–</p>
+
       
     </div>
+    <footer class="article-footer">
+      <a data-url="https://pengleipmaxue.github.io/2018/10/20/几个iOS基础题目总结/" data-id="cjnhbwiqc0003b8sevlrpjbkd" class="article-share-link">分享</a>
+      
+      
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/20/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
 </article>
+
+
 
 </section>
         
